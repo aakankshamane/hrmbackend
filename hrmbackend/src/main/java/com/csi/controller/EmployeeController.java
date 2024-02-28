@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.validation.Valid;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,14 @@ public class EmployeeController {
     public ResponseEntity<List<Employee>> findAll() {
 
         return ResponseEntity.ok(employeeServiceImpl.findAll());
+
+    }
+
+    @GetMapping("/sortbyname/{empName}")
+
+    public ResponseEntity<List<Employee>> sortByName() {
+
+        return ResponseEntity.ok(employeeServiceImpl.findAll().stream().sorted(Comparator.comparing(Employee::getEmpName)).toList());
 
     }
 }
